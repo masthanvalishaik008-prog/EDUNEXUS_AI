@@ -1,0 +1,145 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "Student record in the database",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Student ID" },
+        "name": { "type": "string", "description": "Name" },
+        "email": { "type": "string", "description": "Email" },
+        "department": { "type": "string", "description": "Department" },
+        "batch": { "type": "string", "description": "Batch" },
+        "points": { "type": "number", "description": "Points earned" }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "Staff": {
+      "title": "Staff",
+      "description": "Staff record in the database",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Staff ID" },
+        "name": { "type": "string", "description": "Name" },
+        "email": { "type": "string", "description": "Email" },
+        "department": { "type": "string", "description": "Department" },
+        "role": { "type": "string", "description": "Role" }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile for authenticated advisors and students",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "User UID" },
+        "email": { "type": "string", "description": "User email" },
+        "name": { "type": "string", "description": "Display name" },
+        "role": { "type": "string", "description": "System role" }
+      },
+      "required": ["id", "email"]
+    },
+    "Intervention": {
+      "title": "Intervention",
+      "description": "Recorded mentoring and remedial sessions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Intervention record ID" },
+        "studentId": { "type": "string", "description": "Target student ID" },
+        "studentName": { "type": "string", "description": "Target student name" },
+        "department": { "type": "string", "description": "Department" },
+        "type": { "type": "string", "description": "Intervention type" },
+        "facultyLead": { "type": "string", "description": "Lead faculty mentor" },
+        "status": { "type": "string", "description": "Status" }
+      },
+      "required": ["id", "studentId", "status"]
+    },
+    "StudentAlert": {
+      "title": "StudentAlert",
+      "description": "Early Support Radar alert states and reviews",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Alert ID" },
+        "studentId": { "type": "string", "description": "Target student ID" },
+        "title": { "type": "string", "description": "Alert title" },
+        "priority": { "type": "string", "description": "Priority tier" },
+        "status": { "type": "string", "description": "Review status" }
+      },
+      "required": ["id", "studentId", "priority"]
+    },
+    "AiStudentInsight": {
+      "title": "AiStudentInsight",
+      "description": "Saved Gemini-generated student insight reports",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Insight ID" },
+        "studentId": { "type": "string", "description": "Target student ID" },
+        "summary": { "type": "string", "description": "Report summary" }
+      },
+      "required": ["id", "studentId", "summary"]
+    },
+    "StudentActivity": {
+      "title": "StudentActivity",
+      "description": "Student engagement activity logs and quiz completions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Activity ID" },
+        "studentId": { "type": "string", "description": "Target student ID" },
+        "studentName": { "type": "string", "description": "Target student name" },
+        "title": { "type": "string", "description": "Activity title" },
+        "category": { "type": "string", "description": "Category" },
+        "status": { "type": "string", "description": "Status" },
+        "hoursSpent": { "type": "number", "description": "Hours dedicated" },
+        "verifiedByStaff": { "type": "boolean", "description": "Staff verification status" }
+      },
+      "required": ["id", "studentId", "title", "status"]
+    },
+    "News": {
+      "title": "News",
+      "description": "News record for branch announcements",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "News ID" },
+        "title": { "type": "string", "description": "News Title" },
+        "content": { "type": "string", "description": "Full News Content" },
+        "department": { "type": "string", "description": "Target Department" },
+        "timestamp": { "type": "string", "description": "Date of news" }
+      },
+      "required": ["id", "title", "content", "department"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles for authenticated advisors and users"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Student records and gamified points"
+    },
+    "/staff/{staffId}": {
+      "schema": "Staff",
+      "description": "Staff records"
+    },
+    "/interventions/{interventionId}": {
+      "schema": "Intervention",
+      "description": "Recorded mentoring and remedial sessions"
+    },
+    "/alerts/{alertId}": {
+      "schema": "StudentAlert",
+      "description": "Early Support Radar alert states and reviews"
+    },
+    "/ai_insights/{insightId}": {
+      "schema": "AiStudentInsight",
+      "description": "Saved Gemini-generated student insight reports"
+    },
+    "/student_activities/{activityId}": {
+      "schema": "StudentActivity",
+      "description": "Student activities and engagement submissions"
+    },
+    "/news/{newsId}": {
+      "schema": "News",
+      "description": "Branch-specific news for students and staff"
+    }
+  }
+}
